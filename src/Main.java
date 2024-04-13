@@ -71,43 +71,41 @@ public class Main {
     }
 
     //Second Step
-    public static void selectOperation() {
+    private static void selectOperation() {
         System.out.println("Select operation : \n 1.Add new book \n 2.Get all books \n 3.Delete " +
                 "book \n 0.Exit");
-        s = new Scanner(System.in);
-        String input = s.nextLine();
+        int input = s.nextInt();
 
-        switch (input) {
-            case "0":
-                break;
-            case "1":
-                addBook();
-                selectOperation();
-                break;
-            case "2":
-                Library.getBooks();
-                selectOperation();
-                break;
-            case "3":
-                deleteBook();
-                selectOperation();
-                break;
-            default:
-                System.out.println("choose from 1 to 3");
-                selectOperation();
+        while (input != 0) {
+            switch (input) {
+                case 1:
+                    addBook();
+                    break;
+                case 2:
+                    Library.getBooks();
+                    break;
+                case 3:
+                    deleteBook();
+                    break;
+                default:
+                    System.out.println("choose from 1 to 3");
+            }
+            selectOperation();
         }
     }
 
     private static void deleteBook() {
+        s = new Scanner(System.in);
         Library.getBooks();
 
         System.out.print("Please write the index you want to delete from the library : ");
-        String delete = s.nextLine();
+        int delete = s.nextInt();
 
-        Library.deleteBook(Integer.parseInt(delete));
+        Library.deleteBook(delete);
     }
 
     private static void addBook() {
+        s = new Scanner(System.in);
         System.out.print("Name : ");
         String name = s.nextLine();
 
@@ -118,6 +116,7 @@ public class Main {
         double price = Double.parseDouble(s.nextLine());
 
         Book book = new Book(name, author, price);
+        Library.addBook(book);
         Library.getBooks();
     }
 

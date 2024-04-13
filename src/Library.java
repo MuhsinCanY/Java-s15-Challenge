@@ -1,3 +1,6 @@
+import com.workintech.books.Book;
+import com.workintech.books.Magazine;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -9,15 +12,16 @@ public class Library {
 
     //Books Op
     public static List<Book> getBooks() {
+        return books;
+    }
+
+    public static void displayBooks() {
         if (books.toArray().length == 0) {
             System.out.println("There are no books in the library");
         }
-
-        for (int i = 0; i < books.toArray().length; i++) {
-            Book book = books.get(i);
-            System.out.println(i + ". '" + book.getName() + "' by " + book.getAuthor());
+        for (Book book : books) {
+            book.display();
         }
-        return books;
     }
 
     public static void addBook(Book... books) {
@@ -25,9 +29,12 @@ public class Library {
     }
 
 
-    public static void deleteBook(int index) {
-        if (books.contains(books.get(index))) {
-            books.remove(books.get(index));
+    public static void deleteBook(int id) {
+        for (Book book : books) {
+            if (book.getBookId() == id) {
+                books.remove(book);
+                break;
+            }
         }
     }
 

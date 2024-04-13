@@ -1,10 +1,12 @@
+package com.workintech.books;
+
 import java.util.Date;
 import java.util.Objects;
 import java.util.UUID;
 
 public class Book {
 
-    private UUID ID;
+    private int bookId;
     private String name;
     private String author;
     private double price;
@@ -12,8 +14,8 @@ public class Book {
     private Date date_of_purchase;
 
 
-    public Book(String name, String author, double price) {
-        this.ID = UUID.randomUUID();
+    public Book(int bookId, String name, String author, double price) {
+        this.bookId = bookId;
         this.name = name;
         this.author = author;
         this.price = price;
@@ -21,8 +23,8 @@ public class Book {
         this.date_of_purchase = new Date();
     }
 
-    public UUID getID() {
-        return ID;
+    public int getBookId() {
+        return bookId;
     }
 
     public String getName() {
@@ -45,10 +47,16 @@ public class Book {
         return date_of_purchase;
     }
 
+    public void display() {
+        System.out.println(" ID: " + this.getBookId() + " '" + this.getName() + "'" +
+                " by" +
+                " " + this.getAuthor());
+    }
+
     @Override
     public String toString() {
-        return "Book{" +
-                "ID=" + ID +
+        return "com.workintech.books.Book{" +
+                "book Id=" + bookId +
                 ", name='" + name + '\'' +
                 ", author='" + author + '\'' +
                 ", price=" + price +
@@ -62,11 +70,11 @@ public class Book {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Book book = (Book) o;
-        return Objects.equals(ID, book.ID);
+        return Objects.equals(bookId, book.bookId);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(ID);
+        return Objects.hash(bookId);
     }
 }

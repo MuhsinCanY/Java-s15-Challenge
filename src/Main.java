@@ -15,6 +15,7 @@ public class Main {
         Book book1 = new Book(1001, "Çalıkuşu", "Reşat Nuri Gültekin", 50);
         Book book2 = new Book(1002, "Anadolu Notları", "Reşat Nuri Gültekin", 45);
         Book book3 = new Book(1003, "İnce Memed 1", "Yaşar Kemal", 60);
+        Book book4 = new Book(10030, "İnce Memed 2", "Yaşar Kemal", 65);
 
         Book journal1 = new Journal(1004, "The Guardian", "John Crace", 12);
         Book journal2 = new Journal(1005, "Daily News", "John Crace", 15);
@@ -27,8 +28,8 @@ public class Main {
         Book magazine2 = new Magazine(1009, "Popular Science", "Andrew Paul", 18,
                 FrequencyOfPublication.NORMAL);
 
-        Library.addBook(book1, book2, book3, journal1, journal2, studyBook1, studyBook2, magazine1
-                , magazine2);
+        Library.addBook(book1, book2, book3, book4, journal1, journal2, studyBook1, studyBook2,
+                magazine1, magazine2);
 
         User user1 = new User("Muhsin", "1", "2");
         Library.addUser(user1);
@@ -92,35 +93,33 @@ public class Main {
     //Second Step
     private static void selectOperation() {
         System.out.println();
-        System.out.println("Select operation : \n 1.Add new book \n 2.Get all books \n 3.Delete " + "book \n 0.Exit");
+        System.out.println("Select operation : \n " +
+                "1.Add new book \n " +
+                "2.Get books \n " +
+                "3.Delete book \n " +
+                "4.Search book \n " +
+                "0.Exit");
         int input = s.nextInt();
 
-        while (input != 0) {
+        if (input != 0) {
             switch (input) {
                 case 1:
                     addBook();
                     break;
                 case 2:
-                    Library.displayBooks();
+                    getBook();
                     break;
                 case 3:
                     deleteBook();
+                    break;
+                case 4:
+                    searchBook();
                     break;
                 default:
                     System.out.println("choose from 1 to 3");
             }
             selectOperation();
         }
-    }
-
-    private static void deleteBook() {
-        s = new Scanner(System.in);
-        Library.displayBooks();
-
-        System.out.print("Please write the id you want to delete from the library : ");
-        int delete = s.nextInt();
-
-        Library.deleteBook(delete);
     }
 
     private static void addBook() {
@@ -146,13 +145,57 @@ public class Main {
         switchByCategort(category, id, name, author, price);
     }
 
+    private static void getBook() {
+        System.out.print("Select category (1.Book 2.Journal 3.Study Book 4.Magazine) : ");
+        int category = s.nextInt();
+        switch (category) {
+            case 2:
+                break;
+            case 3:
+                break;
+            case 4:
+                break;
+            default:
+                Library.displayBooks();
+        }
+
+
+    }
+
+    private static void deleteBook() {
+        s = new Scanner(System.in);
+        Library.displayBooks();
+
+        System.out.print("Please write the id you want to delete from the library : ");
+        int delete = s.nextInt();
+
+        Library.deleteBook(delete);
+    }
+
+    private static void searchBook() {
+        s = new Scanner(System.in);
+        System.out.print("Search by (1.Id 2.Title 3.Author) : ");
+        int category = s.nextInt();
+
+        System.out.print("Enter search context : ");
+        String input = s.next();
+
+        switch (category) {
+            case 2:
+                Library.searchByTitle(input);
+                break;
+            case 3:
+                Library.searchByAuthor(input);
+                break;
+            default:
+                Library.searchById(Integer.parseInt(input));
+        }
+    }
+
     private static void switchByCategort(int category, int id, String name, String author,
                                          double price) {
         Book book;
         switch (category) {
-            case 1:
-                book = new Book(id, name, author, price);
-                break;
             case 2:
                 book = new Journal(id, name, author, price);
                 break;
@@ -164,21 +207,13 @@ public class Main {
                 s = new Scanner(System.in);
                 int frequence = s.nextInt();
 
-                switch (frequence) {
-                    case 1:
-                        book = new Magazine(id, name, author, price,
-                                FrequencyOfPublication.FREQUENT);
-                        break;
-                    case 2:
-                        book = new Magazine(id, name, author, price, FrequencyOfPublication.NORMAL);
-                        break;
-                    case 3:
-                        book = new Magazine(id, name, author, price,
-                                FrequencyOfPublication.INFREQUENT);
-                        break;
-                    default:
-                        book = new Magazine(id, name, author, price, FrequencyOfPublication.NORMAL);
-                }
+                book = switch (frequence) {
+                    case 1 -> new Magazine(id, name, author, price,
+                            FrequencyOfPublication.FREQUENT);
+                    case 3 -> new Magazine(id, name, author, price,
+                            FrequencyOfPublication.INFREQUENT);
+                    default -> new Magazine(id, name, author, price, FrequencyOfPublication.NORMAL);
+                };
                 break;
             default:
                 book = new Book(id, name, author, price);

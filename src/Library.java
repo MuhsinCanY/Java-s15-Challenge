@@ -38,6 +38,41 @@ public class Library {
         }
     }
 
+    public static Book searchById(int id) {
+        for (Book book : books) {
+            if (book.getBookId() == id) {
+                book.display();
+                return book;
+            }
+        }
+        System.out.println("Book not found...");
+        return null;
+    }
+
+    public static ArrayList<Book> searchByTitle(String title) {
+        ArrayList<Book> search = new ArrayList<>();
+        System.out.println(title.toLowerCase());
+        for (Book book : books) {
+            if (book.getName().toLowerCase().contains(title.toLowerCase())) {
+                book.display();
+                search.add(book);
+            }
+        }
+        return search;
+    }
+
+    public static ArrayList<Book> searchByAuthor(String author) {
+        ArrayList<Book> search = new ArrayList<>();
+        System.out.println(author.toLowerCase());
+        for (Book book : books) {
+            if (book.getAuthor().toLowerCase().contains(author.toLowerCase())) {
+                book.display();
+                search.add(book);
+            }
+        }
+        return search;
+    }
+
     //User Op
     public static void addUser(User... users) {
         Collections.addAll(Library.users, users);

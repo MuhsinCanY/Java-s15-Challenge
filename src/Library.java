@@ -113,6 +113,17 @@ public class Library {
         return search;
     }
 
+    public static void updateBook(int id, String name, String author, int price) {
+        for (Book book : books) {
+            if (book.getBookId() == id) {
+                book.setName(name);
+                book.setAuthor(author);
+                book.setPrice(price);
+                break;
+            }
+        }
+    }
+
     //User Op
     public static void addUser(User... users) {
         Collections.addAll(Library.users, users);

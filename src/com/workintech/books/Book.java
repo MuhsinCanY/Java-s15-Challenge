@@ -39,6 +39,18 @@ public class Book {
         return price;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
     public boolean isStatus() {
         return status;
     }

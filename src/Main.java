@@ -1,7 +1,4 @@
-import com.workintech.books.Book;
-import com.workintech.books.Journal;
-import com.workintech.books.Magazine;
-import com.workintech.books.StudyBook;
+import com.workintech.books.*;
 import com.workintech.enums.FrequencyOfPublication;
 
 import java.util.Scanner;
@@ -93,12 +90,14 @@ public class Main {
     //Second Step
     private static void selectOperation() {
         System.out.println();
-        System.out.println("Select operation : \n " +
-                "1.Add new book \n " +
-                "2.Get books \n " +
-                "3.Delete book \n " +
-                "4.Search book \n " +
-                "0.Exit");
+        System.out.println("""
+                Select operation :\s
+                 1.Add new book\s
+                 2.Get books\s
+                 3.Delete book\s
+                 4.Search book\s
+                 5.Update book\s
+                 0.Exit""");
         int input = s.nextInt();
 
         if (input != 0) {
@@ -115,8 +114,11 @@ public class Main {
                 case 4:
                     searchBook();
                     break;
+                case 5:
+                    updateBook();
+                    break;
                 default:
-                    System.out.println("choose from 1 to 3");
+                    System.out.println("choose from 1 to 5");
             }
             selectOperation();
         }
@@ -224,6 +226,27 @@ public class Main {
 
         Library.addBook(book);
         Library.displayAllBooks();
+    }
+
+    private static void updateBook() {
+        s = new Scanner(System.in);
+        Library.displayAllBooks();
+
+        System.out.print("Please write the id of book you want to update from the library : ");
+        int id = s.nextInt();
+
+        s = new Scanner(System.in);
+
+        System.out.print("Name : ");
+        String name = s.nextLine();
+
+        System.out.print("Author : ");
+        String author = s.nextLine();
+
+        System.out.print("Price : ");
+        int price = Integer.parseInt(s.nextLine());
+
+        Library.updateBook(id, name, author, price);
     }
 
 

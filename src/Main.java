@@ -150,13 +150,16 @@ public class Main {
         int category = s.nextInt();
         switch (category) {
             case 2:
+                Library.displayJournal();
                 break;
             case 3:
+                Library.displayStudyBook();
                 break;
             case 4:
+                Library.displayMagazine();
                 break;
             default:
-                Library.displayBooks();
+                Library.displayAllBooks();
         }
 
 
@@ -164,7 +167,7 @@ public class Main {
 
     private static void deleteBook() {
         s = new Scanner(System.in);
-        Library.displayBooks();
+        Library.displayAllBooks();
 
         System.out.print("Please write the id you want to delete from the library : ");
         int delete = s.nextInt();
@@ -220,7 +223,7 @@ public class Main {
         }
 
         Library.addBook(book);
-        Library.displayBooks();
+        Library.displayAllBooks();
     }
 
 

@@ -1,9 +1,6 @@
-import com.workintech.books.Book;
-import com.workintech.books.Magazine;
+import com.workintech.books.*;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 public class Library {
 
@@ -15,13 +12,56 @@ public class Library {
         return books;
     }
 
-    public static void displayBooks() {
+    public static List<Book> displayAllBooks() {
         if (books.toArray().length == 0) {
             System.out.println("There are no books in the library");
         }
         for (Book book : books) {
             book.display();
         }
+        return getBooks();
+    }
+
+    public static List<Journal> displayJournal() {
+        List<Journal> journals = new ArrayList<>();
+        for (Book book : books) {
+            if (book instanceof Journal) {
+                book.display();
+                journals.add((Journal) book);
+            }
+        }
+        if (journals.toArray().length == 0) {
+            System.out.println("There are no Journal in the library");
+        }
+        return journals;
+    }
+
+    public static List<StudyBook> displayStudyBook() {
+        List<StudyBook> studyBooks = new ArrayList<>();
+        for (Book book : books) {
+            if (book instanceof StudyBook) {
+                book.display();
+                studyBooks.add((StudyBook) book);
+            }
+        }
+        if (studyBooks.toArray().length == 0) {
+            System.out.println("There are no Study Book in the library");
+        }
+        return studyBooks;
+    }
+
+    public static List<Magazine> displayMagazine() {
+        List<Magazine> magazines = new ArrayList<>();
+        for (Book book : books) {
+            if (book instanceof Magazine) {
+                book.display();
+                magazines.add((Magazine) book);
+            }
+        }
+        if (magazines.toArray().length == 0) {
+            System.out.println("There are no Magazine in the library");
+        }
+        return magazines;
     }
 
     public static void addBook(Book... books) {

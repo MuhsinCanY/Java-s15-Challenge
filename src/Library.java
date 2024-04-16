@@ -1,4 +1,5 @@
 import com.workintech.books.*;
+import com.workintech.enums.BookStatus;
 
 import java.util.*;
 
@@ -6,6 +7,7 @@ public class Library {
 
     static List<Book> books = new ArrayList<>();
     static List<User> users = new ArrayList<>();
+    private static User loggedUser;
 
     //Books Op
     public static List<Book> getBooks() {
@@ -132,11 +134,31 @@ public class Library {
     public static boolean login(String phoneNumber, String email) {
         for (User user : users) {
             if (user.getPhoneNumber().equals(phoneNumber) && user.getEmail().equals(email)) {
+                loggedUser = user;
                 return true;
             }
         }
         return false;
     }
 
+    public static void borrowBook(int bookId) {
+
+        for (Book book : books) {
+            if (book.getBookId() == bookId) {
+                if (book.checkBookStatusAndBorrow()) {
+                    loggedUser.addBorrowedBooks(book);
+                }
+            }
+        }
+    }
+
+    public static void getBorrowedBooks() {
+        for (Book book : loggedUser.getBorrowedBooks()) {
+            book.display();
+        }
+    }
 
 }
+
+
+

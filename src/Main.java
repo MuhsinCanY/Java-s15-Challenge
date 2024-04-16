@@ -7,8 +7,6 @@ public class Main {
     static Scanner s;
 
     public static void main(String[] args) {
-        System.out.println("Hello world!");
-
         Book book1 = new Book(1001, "Çalıkuşu", "Reşat Nuri Gültekin", 50);
         Book book2 = new Book(1002, "Anadolu Notları", "Reşat Nuri Gültekin", 45);
         Book book3 = new Book(1003, "İnce Memed 1", "Yaşar Kemal", 60);
@@ -29,7 +27,20 @@ public class Main {
                 magazine1, magazine2);
 
         User user1 = new User("Muhsin", "1", "2");
+        User user2 = new User("Can", "3", "4");
         Library.addUser(user1);
+        Library.addUser(user2);
+
+        Library.login(user1.getPhoneNumber(), user1.getEmail());
+
+        Library.borrowBook(1001);
+        Library.borrowBook(1002);
+        Library.borrowBook(1003);
+        Library.borrowBook(1004);
+        Library.borrowBook(1005);
+
+        Library.login(user2.getPhoneNumber(), user2.getEmail());
+        Library.borrowBook(1001);
 
         welcome();
     }
@@ -97,6 +108,8 @@ public class Main {
                  3.Delete book\s
                  4.Search book\s
                  5.Update book\s
+                 6.Borrow Book\s
+                 7.Get Borrowed Book\s
                  0.Exit""");
         int input = s.nextInt();
 
@@ -117,8 +130,14 @@ public class Main {
                 case 5:
                     updateBook();
                     break;
+                case 6:
+                    borrowBook();
+                    break;
+                case 7:
+                    getBorrowedBooks();
+                    break;
                 default:
-                    System.out.println("choose from 1 to 5");
+                    System.out.println("choose from 1 to 7");
             }
             selectOperation();
         }
@@ -249,5 +268,17 @@ public class Main {
         Library.updateBook(id, name, author, price);
     }
 
+    private static void borrowBook() {
+        s = new Scanner(System.in);
+
+        System.out.print("Please write the id of book you want to borrow from the library : ");
+        int id = s.nextInt();
+
+        Library.borrowBook(id);
+    }
+
+    private static void getBorrowedBooks() {
+        Library.getBorrowedBooks();
+    }
 
 }

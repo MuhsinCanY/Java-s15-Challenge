@@ -1,5 +1,7 @@
 package com.workintech.books;
 
+import com.workintech.enums.BookStatus;
+
 import java.util.Date;
 import java.util.Objects;
 import java.util.UUID;
@@ -10,7 +12,7 @@ public class Book {
     private String name;
     private String author;
     private double price;
-    private boolean status;
+    private BookStatus status;
     private Date date_of_purchase;
 
 
@@ -19,7 +21,7 @@ public class Book {
         this.name = name;
         this.author = author;
         this.price = price;
-        this.status = true;
+        this.status = BookStatus.NOT_BORROWED;
         this.date_of_purchase = new Date();
     }
 
@@ -51,8 +53,12 @@ public class Book {
         this.price = price;
     }
 
-    public boolean isStatus() {
+    public BookStatus getStatus() {
         return status;
+    }
+
+    public void setStatus(BookStatus status) {
+        this.status = status;
     }
 
     public Date getDate_of_purchase() {
@@ -63,6 +69,18 @@ public class Book {
         System.out.println(" ID: " + this.getBookId() + " '" + this.getName() + "'" +
                 " by" +
                 " " + this.getAuthor());
+    }
+
+    public boolean checkBookStatusAndBorrow() {
+        if (this.getStatus().equals(BookStatus.NOT_BORROWED)) {
+            this.setStatus(BookStatus.BORROWED);
+            this.display();
+            System.out.println("Book borrowed successfully \n");
+            return true;
+        } else {
+            System.out.println("This book was borrowed by someone else");
+            return false;
+        }
     }
 
     @Override

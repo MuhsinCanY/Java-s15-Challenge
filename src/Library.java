@@ -1,5 +1,5 @@
 import com.workintech.books.*;
-import com.workintech.enums.BookStatus;
+import com.workintech.user.User;
 
 import java.util.*;
 
@@ -126,7 +126,7 @@ public class Library {
         }
     }
 
-    //User Op
+    //com.workintech.user.User Op
     public static void addUser(User... users) {
         Collections.addAll(Library.users, users);
     }
@@ -147,14 +147,26 @@ public class Library {
             if (book.getBookId() == bookId) {
                 if (book.checkBookStatusAndBorrow()) {
                     loggedUser.addBorrowedBooks(book);
+                    loggedUser.addInvoicePrice(book.getPrice());
                 }
             }
         }
     }
 
     public static void getBorrowedBooks() {
+        System.out.println("\n Borrowed Books : \n");
         for (Book book : loggedUser.getBorrowedBooks()) {
             book.display();
+        }
+    }
+
+    public static void returnBorrowedBook(int bookId) {
+        for (Book book : loggedUser.getBorrowedBooks()) {
+            if (book.getBookId() == bookId) {
+                loggedUser.removeBorrowedBooks(book);
+                loggedUser.subtractInvoicePrice(book.getPrice());
+                break;
+            }
         }
     }
 

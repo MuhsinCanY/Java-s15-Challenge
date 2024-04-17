@@ -1,5 +1,6 @@
 import com.workintech.books.*;
 import com.workintech.enums.FrequencyOfPublication;
+import com.workintech.user.User;
 
 import java.util.Scanner;
 
@@ -76,7 +77,7 @@ public class Main {
         if (isLogin) {
             selectOperation();
         } else {
-            System.out.println("User not found...");
+            System.out.println("com.workintech.user.User not found...");
             welcome();
         }
     }
@@ -110,6 +111,7 @@ public class Main {
                  5.Update book\s
                  6.Borrow Book\s
                  7.Get Borrowed Book\s
+                 8.Return Borrowed Book\s
                  0.Exit""");
         int input = s.nextInt();
 
@@ -135,6 +137,9 @@ public class Main {
                     break;
                 case 7:
                     getBorrowedBooks();
+                    break;
+                case 8:
+                    returnBorrowedBooks();
                     break;
                 default:
                     System.out.println("choose from 1 to 7");
@@ -280,5 +285,17 @@ public class Main {
     private static void getBorrowedBooks() {
         Library.getBorrowedBooks();
     }
+
+    private static void returnBorrowedBooks() {
+        s = new Scanner(System.in);
+
+        Library.getBorrowedBooks();
+
+        System.out.print("\n Please write the id of book you want to return to the library : ");
+        int id = s.nextInt();
+
+        Library.returnBorrowedBook(id);
+    }
+
 
 }

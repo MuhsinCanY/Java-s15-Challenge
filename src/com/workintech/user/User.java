@@ -2,8 +2,7 @@ package com.workintech.user;
 
 import com.workintech.books.Book;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 import java.util.Objects;
 
 public class User {
@@ -11,7 +10,7 @@ public class User {
     private String name;
     private String email;
     private String phoneNumber;
-    private List<Book> borrowedBooks = new ArrayList<>();
+    private Set<Book> borrowedBooks = new HashSet<>();
     private double invoicePrice = 0;
 
     public User(String name, String email, String phoneNumber) {
@@ -20,32 +19,24 @@ public class User {
         this.phoneNumber = phoneNumber;
     }
 
-    public String getName() {
-        return name;
-    }
-
     public String getEmail() {
         return email;
     }
 
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public List<Book> getBorrowedBooks() {
-        if (borrowedBooks.toArray().length == 0) {
+    public Set<Book> getBorrowedBooks() {
+        if (borrowedBooks.isEmpty()) {
             System.out.println("There is not borrowed book in the user");
         }
         return borrowedBooks;
     }
 
-    public double getInvoicePrice() {
-        return invoicePrice;
+    public void getInvoicePrice() {
+        System.out.println("User's current invoice price : " + invoicePrice);
     }
 
     public void addInvoicePrice(double price) {
         this.invoicePrice += price;
-        System.out.println("user's current invoice price : " + invoicePrice);
+        System.out.println("User's current invoice price : " + invoicePrice);
     }
 
     public void subtractInvoicePrice(double price) {
@@ -58,7 +49,7 @@ public class User {
     }
 
     public void addBorrowedBooks(Book borrowedBook) {
-        if (this.borrowedBooks.toArray().length < 5) {
+        if (this.borrowedBooks.size() < 5) {
             this.borrowedBooks.add(borrowedBook);
 
         } else {
@@ -68,7 +59,7 @@ public class User {
     }
 
     public void removeBorrowedBooks(Book book) {
-        if (this.borrowedBooks.toArray().length > 0) {
+        if (this.borrowedBooks.contains(book)) {
             this.borrowedBooks.remove(book);
             System.out.println("Book successfully returned to the Library");
         } else {
@@ -81,11 +72,11 @@ public class User {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-        return Objects.equals(email, user.email) && Objects.equals(phoneNumber, user.phoneNumber);
+        return Objects.equals(email, user.email);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(email, phoneNumber);
+        return Objects.hash(email);
     }
 }

@@ -6,14 +6,13 @@ import java.util.Date;
 import java.util.Objects;
 import java.util.UUID;
 
-public class Book {
+public class Book implements Bookable {
 
     private int bookId;
     private String name;
     private String author;
     private double price;
     private BookStatus status;
-    private Date date_of_purchase;
 
 
     public Book(int bookId, String name, String author, double price) {
@@ -22,7 +21,6 @@ public class Book {
         this.author = author;
         this.price = price;
         this.status = BookStatus.NOT_BORROWED;
-        this.date_of_purchase = new Date();
     }
 
     public int getBookId() {
@@ -61,10 +59,6 @@ public class Book {
         this.status = status;
     }
 
-    public Date getDate_of_purchase() {
-        return date_of_purchase;
-    }
-
     public void display() {
         System.out.println(" ID: " + this.getBookId() + " '" + this.getName() + "'" +
                 " by" +
@@ -91,7 +85,6 @@ public class Book {
                 ", author='" + author + '\'' +
                 ", price=" + price +
                 ", status=" + status +
-                ", date_of_purchase=" + date_of_purchase +
                 '}';
     }
 

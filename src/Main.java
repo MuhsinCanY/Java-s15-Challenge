@@ -1,5 +1,6 @@
 import com.workintech.books.*;
 import com.workintech.enums.FrequencyOfPublication;
+import com.workintech.library.Library;
 import com.workintech.user.User;
 
 import java.util.Scanner;
@@ -32,7 +33,7 @@ public class Main {
         Library.addUser(user1);
         Library.addUser(user2);
 
-        Library.login(user1.getPhoneNumber(), user1.getEmail());
+        Library.login(user1.getEmail());
 
         Library.borrowBook(1001);
         Library.borrowBook(1002);
@@ -40,7 +41,7 @@ public class Main {
         Library.borrowBook(1004);
         Library.borrowBook(1005);
 
-        Library.login(user2.getPhoneNumber(), user2.getEmail());
+        Library.login(user2.getEmail());
         Library.borrowBook(1001);
 
         welcome();
@@ -48,7 +49,10 @@ public class Main {
 
     //First Step
     private static void welcome() {
-        System.out.println("Welcome to Library... \n 1.Login \n 2.Create New User");
+        System.out.println("""
+                Welcome to Library...\s
+                 1.Login\s
+                 2.Create New User""");
         s = new Scanner(System.in);
 
         int input = s.nextInt();
@@ -72,12 +76,12 @@ public class Main {
         System.out.println("Enter email : ");
         String email = s.next();
 
-        boolean isLogin = Library.login(phoneNumber, email);
+        boolean isLogin = Library.login(email);
 
         if (isLogin) {
             selectOperation();
         } else {
-            System.out.println("com.workintech.user.User not found...");
+            System.out.println("User not found...");
             welcome();
         }
     }
@@ -112,6 +116,7 @@ public class Main {
                  6.Borrow Book\s
                  7.Get Borrowed Book\s
                  8.Return Borrowed Book\s
+                 9.Display Invoice\s
                  0.Exit""");
         int input = s.nextInt();
 
@@ -140,6 +145,9 @@ public class Main {
                     break;
                 case 8:
                     returnBorrowedBooks();
+                    break;
+                case 9:
+                    displayInvoice();
                     break;
                 default:
                     System.out.println("choose from 1 to 7");
@@ -295,6 +303,10 @@ public class Main {
         int id = s.nextInt();
 
         Library.returnBorrowedBook(id);
+    }
+
+    private static void displayInvoice() {
+        Library.displayInvoice();
     }
 
 

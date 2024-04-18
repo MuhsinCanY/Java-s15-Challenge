@@ -1,5 +1,8 @@
 #  Java OOP Design
 
+![Untitled Diagram drawio](https://github.com/MuhsinCanY/Java-s15-Challenge/assets/96295315/784ed3fd-291f-4b6e-b6f0-1243454e8d04)
+
+
 ### Proje Kurulumu
 
 Projeyi öncelikle forklayın ve clone edin.
